@@ -13,6 +13,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'WelcomeController@index')->name('root');
+
+Route::get('/home', 'WelcomeController@home')
+    ->middleware('auth')
+    ->name('home');
+
+Route::get('/hola/{name}', 'WelcomeController@hello')->name('welcome.hello');
+
+Route::resource('products', 'ProductsController');
+Route::get('/productos', 'ProductsController@index')->name('productos.index');
+Route::get('/productos/nuevo', 'ProductsController@create')->name('productos.create');
+Route::post('/productos', 'ProductsController@store')->name('productos.store');
