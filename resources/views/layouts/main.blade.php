@@ -8,8 +8,7 @@
     <!-- Use the title from a page's frontmatter if it has one -->
     <title>Amazing Store: Precios más bajos</title>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-    <!-- <link href="/stylesheets/bootstrap.css" rel="stylesheet">
-    <link href="/stylesheets/site.css" rel="stylesheet"> -->
+    <link href="/css/app.css" rel="stylesheet">
 </head>
 
 <body>
@@ -24,10 +23,7 @@
             @yield('content')
         </div>
     </main>
-    <!-- <script src="/javascripts/jquery.js"></script>
-    <script src="/javascripts/popper.js"></script>
-    <script src="/javascripts/bootstrap.js"></script>
-    <script src="/javascripts/site.js"></script> -->
+    <script src="/js/app.js"></script>
 </body>
 
 </html>
