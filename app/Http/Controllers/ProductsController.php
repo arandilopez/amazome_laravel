@@ -48,6 +48,7 @@ class ProductsController extends Controller
         $product->name = $request->input('name');
         $product->sku = $request->input('sku');
         $product->price = $request->input('price', 0);
+        $product->user()->associate(auth()->user());
         if ($product->save()) {
             return redirect()->route('productos.index');
         } else {

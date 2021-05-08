@@ -23,11 +23,11 @@ Route::get('/hola/{name}', 'WelcomeController@hello')->name('welcome.hello');
 
 // Route::resource('products', 'ProductsController');
 Route::get('/productos', 'ProductsController@index')->name('productos.index');
-Route::post('/productos', 'ProductsController@store')->name('productos.store');
-Route::get('/productos/nuevo', 'ProductsController@create')->name('productos.create');
+Route::post('/productos', 'ProductsController@store')->name('productos.store')->middleware(['auth']);
+Route::get('/productos/nuevo', 'ProductsController@create')->name('productos.create')->middleware(['auth']);
 Route::get('/productos/{id}', 'ProductsController@show')->name('productos.show');
-Route::get('/productos/{id}/editar', 'ProductsController@edit')->name('productos.edit');
-Route::put('/productos/{id}', 'ProductsController@update')->name('productos.update');
+Route::get('/productos/{id}/editar', 'ProductsController@edit')->name('productos.edit')->middleware(['auth']);
+Route::put('/productos/{id}', 'ProductsController@update')->name('productos.update')->middleware(['auth']);
 
 Auth::routes();
 
