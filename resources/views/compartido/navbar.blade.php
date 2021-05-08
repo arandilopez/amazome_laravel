@@ -19,8 +19,21 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Mi cuenta</a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a href="/login.php" class="dropdown-item">Iniciar
-                            sesión</a>
+                        @if(Auth::user())
+                        <div class="dropdown-item">{{ auth()->user()->name }}</div>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                            {{ __('Logout') }}
+                        </a>
+
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                            @csrf
+                        </form>
+                        @else
+                        <a href="{{ route('login') }}" class="dropdown-item">Iniciar sesión</a>
+                        <a href="{{ route('register') }}" class="dropdown-item">Crear una cuenta</a>
+                        @endif
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="#">Mis pedidos</a>
                     </div>

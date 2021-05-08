@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class ProductsController extends Controller
@@ -13,7 +14,9 @@ class ProductsController extends Controller
      */
     public function index()
     {
-        //
+        $products = Product::all();
+
+        return view('products.index')->with('products', $products);
     }
 
     /**
@@ -23,7 +26,7 @@ class ProductsController extends Controller
      */
     public function create()
     {
-        //
+        return view('products.create');
     }
 
     /**
@@ -34,7 +37,22 @@ class ProductsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required',
+            'sku' => 'required|string|unique:products',
+            'price' => 'required|numeric'
+        ]);
+
+        // Product::create($request->all());
+        $product = new Product();
+        $product->name = $request->input('name');
+        $product->sku = $request->input('sku');
+        $product->price = $request->input('price', 0);
+        if ($product->save()) {
+            return redirect()->route('productos.index');
+        } else {
+            return redirect()->route('productos.create');
+        }
     }
 
     /**
@@ -56,7 +74,9 @@ class ProductsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $product = Product::findOrFail($id);
+
+        return view('products.edit')->with('product', $product);
     }
 
     /**
@@ -68,7 +88,21 @@ class ProductsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required',
+            'sku' => 'required|string|unique:products,id,' . $id,
+            'price' => 'required|numeric'
+        ]);
+
+        $product = Product::findOrFail($id);
+        $product->name = $request->input('name');
+        $product->sku = $request->input('sku');
+        $product->price = $request->input('price');
+        $product->save();
+
+        return redirect()->route('productos.index');
+
+        // return response()->json(['id' => 1, 'name' => 'Arandi', 'descripcion' => "<small>Hey</small>"]);
     }
 
     /**
@@ -79,6 +113,8 @@ class ProductsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Product::destroy($id);
+
+        return redirect()->route('productos.index');
     }
 }
